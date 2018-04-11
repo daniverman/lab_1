@@ -1,6 +1,7 @@
 import os.path
 import sqlite3
 import csv
+import db as db
 
 
 # check if db exist
@@ -10,18 +11,24 @@ def check_if_db_exist():
 
 
 def load_movie_file():
+    movies_dic = dict()
     with open("movies.csv") as csvfile:
         movies = csv.reader(csvfile)
-        movies_dic = dict()
         junk = movies.next()
         for row in movies:
             id = row[0]
             name = row[1]
             catagory = row[2].split("|")[0]
-            movies_dic[id] = (name , catagory)
-        return dict
+            movies_dic[id] = (name, catagory)
+    return movies_dic
 
 
+def insert_movies_to_db(movies):
+    for movie in movies.iterkeys():
+        id = movie
+        name = movies[id][0]
+        genre = movies[id][1]
+        db.insert(id, name, genre)
 
 
 # build the data base
@@ -30,3 +37,9 @@ def build_db():
         return
     else:
         movies = load_movie_file()
+        db.create_table()
+        insert_movies_to_db(movies)
+
+
+def get_all_movies():
+    return db.select_all()

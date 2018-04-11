@@ -47,8 +47,3 @@ def update(q, p, item):
     cur.execute("UPDATE store SET quantity=?, price=? WHERE item=?;", (q, p, item))
     conn.commit()
     conn.close()
-
-
-
-if __name__=='__main__':
-    app.run(debug=True)

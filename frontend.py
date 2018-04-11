@@ -2,7 +2,10 @@ from Tkinter import *
 import backend as backend
 
 window = Tk()
+window.resizable(width=True, height=True)
 
+
+# window.minsize(width=600,height=800)
 
 def build_main_window():
     # search box and its lbl
@@ -18,13 +21,15 @@ def build_main_window():
     id_lbl.grid(row=1, column=0)
     id_entry = Entry(window)
     id_entry.grid(row=1, column=1)
-    # diplay box
-    movie_listbox = Listbox(window)
-    movie_listbox.grid(row=4, column=0, columnspan=2, rowspan=5)
+    # display box
+    global movie_listbox
     movie_listbox_scroll = Scrollbar(window)
     movie_listbox_scroll.grid(row=4, column=2, rowspan=5)
+    movie_listbox = Listbox(window,yscrollcommand=movie_listbox_scroll)
+    movie_listbox.grid(row=4, column=0, columnspan=2, rowspan=5)
+    movie_listbox_scroll.config(command=movie_listbox.yview)
     # all the  buttons
-    view_all_btt = Button(window, width=15, text="View All")
+    view_all_btt = Button(window, width=15, text="View All", command=view_all_cmd)
     view_all_btt.grid(row=3, column=3)
     search_entry_btt = Button(window, width=15, text="Search Entry")
     search_entry_btt.grid(row=4, column=3)
@@ -38,6 +43,15 @@ def build_main_window():
     close_btt.grid(row=8, column=3)
 
 
+# view all command after press on the view all button
+def view_all_cmd():
+    movies = backend.get_all_movies()
+    movie_listbox.config(width=0)
+    i = 1
+    for movie in movies:
+        movie_listbox.insert(i, movie[1])
+        i += 1
+    window.winfo_toplevel().wm_geometry("")
 build_main_window()
 
 
