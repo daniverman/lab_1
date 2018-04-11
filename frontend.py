@@ -23,7 +23,7 @@ def build_main_window():
     movie_listbox.grid(row=4,column=0,columnspan=2 ,rowspan=5)
     movie_listbox_scroll = Scrollbar(window)
     movie_listbox_scroll.grid(row=4,column=2 ,rowspan=5)
-    #all the buttons
+    #all the  buttons
     view_all_btt = Button(window,width=15,text="View All")
     view_all_btt.grid(row=3,column=3)
     search_entry_btt = Button(window,width=15,text="Search Entry")
