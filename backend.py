@@ -11,9 +11,16 @@ def check_if_db_exist():
 
 def load_movie_file():
     with open("movies.csv") as csvfile:
-        movies = csv.reader(csvfile,delimiter=' ', quotechar='|')
+        movies = csv.reader(csvfile)
+        movies_dic = dict()
+        junk = movies.next()
         for row in movies:
-            ""
+            id = row[0]
+            name = row[1]
+            catagory = row[2].split("|")[0]
+            movies_dic[id] = (name , catagory)
+        return dict
+
 
 
 
