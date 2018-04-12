@@ -43,3 +43,11 @@ def build_db():
 
 def get_all_movies():
     return db.select_all()
+
+
+def get_movie(*tuples):
+    args = []
+    for tuple in tuples:
+        args.append(tuple) if tuple[0] is not "" else None
+    ans = db.select(args)
+    return ans

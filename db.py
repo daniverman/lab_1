@@ -24,11 +24,26 @@ def select_all():
     conn = sqlite3.connect('db.db')
     cur = conn.cursor()
     cur.execute("SELECT * FROM movies;")
-    items=cur.fetchall()
+    items = cur.fetchall()
     conn.commit()
     conn.close()
 
     return items
 
 
-
+def select(args):
+    id, title, genre = '%', '%', '%'
+    for arg in args:
+        if arg[1] == "id":
+            id = arg[0]
+        elif arg[1] == "title":
+            title = '%' + arg[0] + '%'
+        elif arg[1] == "genre":
+            genre = arg[0]
+    conn = sqlite3.connect('db.db')
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM movies WHERE Id Like (?) AND Title LIKE (?) AND Genre LIKE (?);",(id,title,genre))
+    item = cur.fetchall()
+    conn.commit()
+    conn.close()
+    return item
