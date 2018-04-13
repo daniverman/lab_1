@@ -29,9 +29,12 @@ def add_movie():
         if title[0] == "" or id[0] == "" or genre[0] == "":
             tkMessageBox._show("Error", "Please entry id title and genre", tkMessageBox.ERROR)
         else:
-            backend.add_movie(title, id, genre)
-            mesg = id[0] + " " + title[0] + " " + genre[0]
-            tkMessageBox._show("Insert", 'The movie Was Insert  : \n ' + mesg, tkMessageBox.INFO)
+            if id[0].isdigit() is False:
+                tkMessageBox._show("Error", "Please entry id contains from integers only", tkMessageBox.ERROR)
+            else:
+                backend.add_movie(title, id, genre)
+                mesg = id[0] + " " + title[0] + " " + genre[0]
+                tkMessageBox._show("Insert", 'The movie Was Insert  : \n ' + mesg, tkMessageBox.INFO)
 
     except Exception:
         tkMessageBox._show("Error", "insert movie was canceled, try again", tkMessageBox.ERROR)
