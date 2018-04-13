@@ -10,12 +10,17 @@ def create_table():
 
 
 def insert(*args):
-    ID = args[0]
-    Title = args[1]
-    Genre = args[2]
+    id, title, genre = '', '', ''
+    for arg in args[0]:
+        if arg[1] == "id":
+            id = arg[0]
+        elif arg[1] == "title":
+            title = arg[0]
+        elif arg[1] == "genre":
+            genre = arg[0]
     conn = sqlite3.connect('db.db')
     cur = conn.cursor()
-    cur.execute("INSERT INTO movies  VALUES (?,?,?);", (ID, Title, Genre))
+    cur.execute("INSERT INTO movies  VALUES (?,?,?);", (id, title, genre))
     conn.commit()
     conn.close()
 
@@ -47,3 +52,19 @@ def select(args):
     conn.commit()
     conn.close()
     return item
+
+
+def update(old_id, new_id, new_title, new_genre):
+    conn = sqlite3.connect('db.db')
+    cur = conn.cursor()
+    cur.execute("UPDATE movies SET Id = (?) ,Title=(?), Genre = (?) WHERE Id=(?);",(new_id,new_title,new_genre,old_id))
+    conn.commit()
+    conn.close()
+
+
+def delete(id):
+    conn = sqlite3.connect('db.db')
+    cur = conn.cursor()
+    cur.execute("DELETE FROM movies WHERE Id=(?);",(id,))
+    conn.commit()
+    conn.close()

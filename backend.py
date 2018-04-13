@@ -51,3 +51,18 @@ def get_movie(*tuples):
         args.append(tuple) if tuple[0] is not "" else None
     ans = db.select(args)
     return ans
+
+
+def add_movie(*tuples):
+    args = []
+    for tuple in tuples:
+        args.append(tuple) if tuple[0] is not "" else None
+    db.insert(args)
+
+
+def update_movie(old_id, new_id, new_title, new_genre):
+    db.update(old_id, new_id, new_title,new_genre)
+
+
+def delete_movie(id):
+    db.delete(id)
