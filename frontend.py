@@ -32,7 +32,7 @@ def add_movie():
             if id[0].isdigit() is False:
                 tkMessageBox._show("Error", "Please entry id contains from integers only", tkMessageBox.ERROR)
             else:
-                backend.add_movie(title, id, genre)
+                backend.add_movie(id, title, genre)
                 mesg = id[0] + " " + title[0] + " " + genre[0]
                 tkMessageBox._show("Insert", 'The movie Was Insert  : \n ' + mesg, tkMessageBox.INFO)
 
@@ -69,7 +69,7 @@ def update_movie():
         new_genre = genre_entry.get()
         id_was_changed = str(selected_movie[0]) != new_id
         if id_was_changed:  # wait for an answer if need to support it
-            id_already_exist = backend.get_movie([new_id, "id"]) is not None
+            tkMessageBox._show("Update", "you cant change a id")
         else:
             backend.update_movie(selected_movie[0], new_id, new_title, new_genre)
             old_movie = str(selected_movie[0]) + " " + str(selected_movie[1]) + " " + str(selected_movie[2])
