@@ -219,7 +219,7 @@ def ger_k_rec(user_id, k_rec):
         return ["no user id exist"]
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/rec/', methods=['GET', 'POST'])
 def handle_request():
     if request.method == 'POST':
         try:
